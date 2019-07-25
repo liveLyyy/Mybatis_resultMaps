@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.TeacherMapper">
+    <resultMap type="com.liyan.pojo.Teacher" id="mymap" >
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <collection property="list" select="mapper.StudentMapper.findByTid" column="id" ofType="student">
+
+        </collection>
+    </resultMap>
+
+    <select id="findAll" resultMap="mymap">
+        select * from teacher 
+    </select>
+    <select id="findById" resultType="teacher" parameterType="int">
+        select * from teacher where id=#{0}
+    </select>
+
+    <resultMap id="mymap1" type="com.liyan.pojo.Teacher">
+        <id column="tid" property="id"/>
+        <result column="tname" property="name"/>
+        <collection property="list" ofType="student" >
+            <id column="sid" property="id"/>
+            <result column="sname" property="name"/>
+            <result column="age" property="age"/>
+            <result column="tid" property="tid"/>
+        </collection>
+    </resultMap>
+
+    <select id="findAll1" resultMap="mymaps">
+        select t.id tid,t.`name` tname,s.id sid,s.`name` sname,age,tid from teacher t LEFT JOIN student s ON t.id=s.tid
+    </select>
+
+    <insert id="insert" parameterType="teacher">
+
+    </insert>
+
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
+
+    <typeAliases>
+        <!--        <typeAlias type="com.liyan.pojo.People" alias="peo"/>-->
+        <package name="com.liyan.pojo"/>
+    </typeAliases>
+    <!--default引用environment的id，当前使用的环境-->
+    <environments default="default">
+        <!--声明可以使用的环境-->
+        <environment id="default">
+            <!--使用原生JDBC事务-->
+            <transactionManager type="JDBC"></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/back?serverTimezone=UTC"/>
+                <property name="username" value="root"/>
+                <property name="password" value="root"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+       <mapper resource="mapper/TeacherMapper.xml"/>
+        <mapper resource="mapper/StudentMapper.xml"/>
+    </mappers>
+</configuration>
